@@ -7,7 +7,8 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='images/', default='../default_profile_qohjd5')
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return self.owner.username + "'s Profile"
 
