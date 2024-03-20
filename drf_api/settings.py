@@ -58,9 +58,9 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'blink-box-dfr.herokuapp.com', '127.0.0.1', 'blink-box-drf-1e212f83bc7c.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['8000-annieross10-blinkbox-drf-nx46jyp4hi.us1.codeanyapp.com', '127.0.0.1:8000', 'blink-box-dfr.herokuapp.com', '127.0.0.1', 'blink-box-drf-1e212f83bc7c.herokuapp.com', 'localhost']
 
 
 
