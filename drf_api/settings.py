@@ -110,7 +110,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'https://blink-box-c094174c6d2b.herokuapp.com', 'localhost'
+    'https://blink-box-c094174c6d2b.herokuapp.com', 'http://localhost:3000', 'http://localhost:3002',
 ]
 
 ROOT_URLCONF = 'drf_api.urls'
