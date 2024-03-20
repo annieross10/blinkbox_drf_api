@@ -6,7 +6,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     friend_id = serializers.SerializerMethodField()
-    friends_count = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -19,9 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             return friend.id if friend else None
         return None
 
-    def get_friends_count(self, obj):
-        return obj.friends_count  
 
     class Meta:
         model = Profile
-        fields = ['id', 'owner', 'bio', 'birth_date', 'profile_picture', 'is_owner', 'friend_id', 'friends_count']
+        fields = ['id', 'owner', 'bio', 'birth_date', 'profile_picture', 'is_owner', 'friend_id',]

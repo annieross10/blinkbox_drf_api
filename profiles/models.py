@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='images/', default='../default_profile_qohjd5')
+    profile_picture = models.ImageField(upload_to='images/', default='../default_profile_j48glb')
     bio = models.TextField(blank=True)
     birth_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return self.owner.username + "'s Profile"
 
