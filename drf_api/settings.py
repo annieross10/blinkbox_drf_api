@@ -50,7 +50,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['http://localhost:3000', 'blink-box-dfr.herokuapp.com', '127.0.0.1', 'blink-box-drf-1e212f83bc7c.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1:8000', 'blink-box-dfr.herokuapp.com', '127.0.0.1', 'blink-box-drf-1e212f83bc7c.herokuapp.com', 'localhost']
 
 
 
