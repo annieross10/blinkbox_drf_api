@@ -31,8 +31,7 @@ class ProfileList(generics.ListAPIView):
         'title',
     ]
     ordering_fields = [
-        'posts_count',
-        'friends_count',
+      'created_at',
     ]
 
 
