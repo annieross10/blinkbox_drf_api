@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from posts.models import Post
-from likes.models import Like
-from savedpost.models import SavedPost
-
+from likes.models import Like, Love, Laugh
 
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -12,6 +10,8 @@ class PostSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     savedpost_count = serializers.ReadOnlyField()
+    loves_count = serializers.SerializerMethodField()
+    laughs_count = serializers.SerializerMethodField()
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -33,11 +33,31 @@ class PostSerializer(serializers.ModelSerializer):
     def get_like_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
-            like = Like.objects.filter(
-                owner=user, post=obj
-            ).first()
+            like = Like.objects.filter(owner=user, post=obj).first()
             return like.id if like else None
         return None
+
+    def get_loves_count(self, obj):
+        return Love.objects.filter(post=obj).count()
+
+    def get_love_id(self, obj):
+    user = self.context['request'].user
+    if user.is_authenticated:
+        love = Love.objects.filter(owner=user, post=obj).first()
+        return love.id if love else None
+    return None
+
+
+    def get_laughs_count(self, obj):
+        return Laugh.objects.filter(post=obj).count()
+
+    def get_laugh_id(self, obj):
+    user = self.context['request'].user
+    if user.is_authenticated:
+        laugh = Laugh.objects.filter(owner=user, post=obj).first()
+        return laugh.id if laugh else None
+    return None
+
 
     class Meta:
         model = Post
@@ -46,4 +66,5 @@ class PostSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at',
             'title', 'content', 'image', 
             'like_id', 'likes_count', 'savedpost_count',
+            'loves_count', 'laughs_count',
         ]
