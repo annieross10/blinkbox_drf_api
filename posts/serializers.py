@@ -1,7 +1,3 @@
-from rest_framework import serializers
-from posts.models import Post
-from likes.models import Like, Love, Laugh
-
 class PostSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -41,23 +37,21 @@ class PostSerializer(serializers.ModelSerializer):
         return Love.objects.filter(post=obj).count()
 
     def get_love_id(self, obj):
-    user = self.context['request'].user
-    if user.is_authenticated:
-        love = Love.objects.filter(owner=user, post=obj).first()
-        return love.id if love else None
-    return None
-
+        user = self.context['request'].user
+        if user.is_authenticated:
+            love = Love.objects.filter(owner=user, post=obj).first()
+            return love.id if love else None
+        return None
 
     def get_laughs_count(self, obj):
         return Laugh.objects.filter(post=obj).count()
 
     def get_laugh_id(self, obj):
-    user = self.context['request'].user
-    if user.is_authenticated:
-        laugh = Laugh.objects.filter(owner=user, post=obj).first()
-        return laugh.id if laugh else None
-    return None
-
+        user = self.context['request'].user
+        if user.is_authenticated:
+            laugh = Laugh.objects.filter(owner=user, post=obj).first()
+            return laugh.id if laugh else None
+        return None
 
     class Meta:
         model = Post
