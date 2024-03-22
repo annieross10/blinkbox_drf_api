@@ -1,11 +1,9 @@
-
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
+from rest_framework import generics, permissions
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Like, Love, Laugh
 from .serializers import LikeSerializer, LoveSerializer, LaughSerializer
 
-class LikeCreateAPIView(generics.CreateAPIView):
+class LikeList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LikeSerializer
     queryset = Like.objects.all()
@@ -13,7 +11,12 @@ class LikeCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class LoveCreateAPIView(generics.CreateAPIView):
+class LikeDetail(generics.RetrieveAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = LikeSerializer
+    queryset = Like.objects.all()
+
+class LoveList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LoveSerializer
     queryset = Love.objects.all()
@@ -21,7 +24,12 @@ class LoveCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class LaughCreateAPIView(generics.CreateAPIView):
+class LoveDetail(generics.RetrieveAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = LoveSerializer
+    queryset = Love.objects.all()
+
+class LaughList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LaughSerializer
     queryset = Laugh.objects.all()
@@ -29,3 +37,7 @@ class LaughCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class LaughDetail(generics.RetrieveAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = LaughSerializer
+    queryset = Laugh.objects.all()
