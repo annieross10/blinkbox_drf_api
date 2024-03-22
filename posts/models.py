@@ -14,6 +14,12 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../default_profile_qohjd5', blank=True
     )
+    like = models.ManyToManyField(
+        User, related_name='post_likes', blank=True)
+    love = models.ManyToManyField(
+        User, related_name='post_loves', blank=True)
+    laugh = models.ManyToManyField(
+        User, related_name='post_laughs', blank=True)
 
     image_filter = models.CharField(
         max_length=32, default='normal'
@@ -24,3 +30,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def number_of_like(self):
+        return self.like.count()
+
+    def number_of_love(self):
+        return self.love.count()
+
+    def number_of_laugh(self):
+        return self.laugh.count()

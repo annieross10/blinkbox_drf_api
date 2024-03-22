@@ -46,3 +46,28 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
         likes_count=Count('likes', distinct=True),
         savedpost_count=Count('savedpost', distinct=True)
     ).order_by('-created_at')
+
+class PostAction(generics.RetrieveUpdateDestroyAPIView):
+    action_field = None
+
+    def post(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        user = request.user
+
+        if hasattr(post, self.action_field):
+            action_field = getattr(post, self.action_field)
+            if action_field.filter(id=user.id).exists():
+                action_field.remove(user)
+            else:
+                action_field.add(user)
+
+        return HttpResponseRedirect(reverse('post_detail', args=[pk]))
+
+class PostLike(PostAction):
+    action_field = 'like'
+
+class PostLove(PostAction):
+    action_field = 'love'
+
+class PostLaugh(PostAction):
+    action_field = 'laugh'
